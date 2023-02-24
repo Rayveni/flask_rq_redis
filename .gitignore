@@ -1,0 +1,5 @@
+Thumbs.db
+__pycache__/
+instance/
+.ipynb_checkpoints
+ignore.txt

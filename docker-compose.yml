@@ -1,0 +1,41 @@
+version: "3.91"
+services:
+  app:
+    build:
+      context: ./backend/ 
+      dockerfile: Dockerfile      
+    image: local_image/flask_rq       
+    # flask requires SIGINT to stop gracefully
+    # (default stop signal from Compose is SIGTERM)
+    stop_signal: SIGINT 
+    environment:
+      - TZ=${timezone} 
+      - redis_url=${redis_url}       
+    volumes: 
+      - type: bind
+        source: ${code_source}
+        target: /app  
+    command: python server.py           
+    ports:
+      - "${app_ports}"
+   
+  worker:
+    image: local_image/flask_rq 
+    environment: 
+      - redis_url=${redis_url} 
+      - TZ=${timezone}       
+    volumes: 
+      - type: bind
+        source: ${code_source}
+        target: /app     
+    command: python worker.py        
+    depends_on:
+      - redis
+   
+  redis:
+    hostname: redis    
+    image: redis:7.0.8-bullseye  
+    ports:
+      - ${redis_port}       
+
+ 

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>trade_app | {{ data.title }}</title>
+    <!-- Custom styles for this template-->
+    <link href="/static/css/mycss.css" rel="stylesheet">
+  </head>
+  <body>
+    <img src="/static/docker_flask.png" />
+    <p>Added task to queue default:{{data.task_param}}</p>
+    <p>Tasks in queue:{{data.queue_count}}</p>
+    <p>Completed tasks:{{data.completed}}</p>
+<p><a href="/finished_tasks">Completed tasks:{{data.completed}}</a></p>	
+    <form action="{{ url_for("index_func")}}" method="post">
+      <label>Task Parameter:</label>
+      <input type="text" id="task_parameter" name="task_param" placeholder="Task Parameter">
+      <button type="submit">submit</button>
+  </body>
+</html>
